@@ -10,7 +10,7 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 5
+    page_size = 3
 
     def get_current_page(self):
         if self.page.has_next():
@@ -25,6 +25,7 @@ class CustomPagination(PageNumberPagination):
             'next': self.get_next_link(),
             'current':self.request.build_absolute_uri(),
             'cpage':self.get_current_page(),
+            'page_size':self.page_size,
             'previous': self.get_previous_link(),
             'count': self.page.paginator.count,
             'results': data
