@@ -18,7 +18,7 @@ class VModelSerializer(serializers.ModelSerializer):
 
 class VehicleSerializer(serializers.ModelSerializer):
     make = MakeSerializer(read_only = True)
-    model = VModelSerializer(read_only = True)
+    v_model = VModelSerializer(read_only = True)
     class Meta:
         model = Vehicle
         fields = "__all__"
