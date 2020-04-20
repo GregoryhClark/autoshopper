@@ -7,10 +7,10 @@ from vehicles.models import Make, VModel, Vehicle
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from rest_framework_extensions.mixins import PaginateByMaxMixin
 
-
-class CustomPagination(PageNumberPagination):
-    page_size = 3
+class CustomPagination( PageNumberPagination):
+    page_size = 5
 
     def get_current_page(self):
         if self.page.has_next():
@@ -21,6 +21,7 @@ class CustomPagination(PageNumberPagination):
         return 1
 
     def get_paginated_response(self, data):
+        print(self)
         return Response({
             'next': self.get_next_link(),
             'current':self.request.build_absolute_uri(),
