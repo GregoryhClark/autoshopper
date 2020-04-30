@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
+import About from './components/About/About';
 // import Admin from './components/Admin/Admin';
 import Search from './components/Search/Search';
 
@@ -54,10 +55,6 @@ function App() {
       </div>
     </Router>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
 }
 
 export default App;

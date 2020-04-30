@@ -242,4 +242,4 @@ function BetterTable({columns, reqURL, setTableData}) {
     )
 }
 
-export default BetterTable
+export default BetterTable;
