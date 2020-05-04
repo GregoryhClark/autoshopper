@@ -1,4 +1,4 @@
-table {
+/* table {
     border-spacing: 0;
     border: 3px solid #eee;
     width:100%;
@@ -32,18 +32,10 @@ th {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 th :after{
-    /* border-right: 1px solid rgba(189, 195, 199, 0.5);
-     content: " ";
-     height: 16px;
-     margin-top: 8px;
-     text-indent: -2000px; */
+
      }
 td {
         margin: 0;
-        /* padding: 0.5rem; */
-        /* display: flex;
-        flex-wrap: wrap;
-        justify-content: center; */
         text-align:center;
         font-weight: 400;
         
@@ -74,4 +66,4 @@ td :last-child{
 
 .filterLabel{
     margin: 0 5px;
-}
+} */

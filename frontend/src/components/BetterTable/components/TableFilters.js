@@ -1,6 +1,6 @@
 import React from 'react';
 import FilterInput from './FilterInput';
-import styles from '../BetterTable.module.css';
+import styles from './TableFilters.module.css';
 
 const TableFilters = (props) =>{
     const getQueryParams = (filterData) =>{
@@ -34,6 +34,6 @@ const TableFilters = (props) =>{
             <button className={styles.filterBtn}onClick={runSearch}>Apply Filters</button>
         </div>
     ):null;
-}
+};
 
 export default TableFilters;

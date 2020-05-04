@@ -23,6 +23,7 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
+      <div className = {styles.jumbo}>
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
@@ -46,32 +47,14 @@ function Table({ columns, data }) {
         })}
       </tbody>
     </table>
+    </div>
   )
 }
 
 function ManualTable(props) {
-  const columns = React.useMemo(
-    () => [
-          {
-            Header: 'Make',
-            accessor: 'make',
-          },
-          {
-            Header: 'Model',
-            accessor: 'v_model',
-          },
-          {
-            Header: 'Year',
-            accessor: 'year',
-          }
-    ],
-    []
-  )
-
-
   return (
     <div>
-      <Table columns={columns} data={props.data} />
+      <Table columns={props.columns} data={props.data}/>
     </div>
   )
 }

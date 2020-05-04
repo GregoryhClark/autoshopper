@@ -46,8 +46,30 @@ function Search(props) {
         //Force update of table.
     }
 
-    const columns = React.useMemo(
-        () => [
+    // const columns = React.useMemo(
+    //     () => [
+    //         {
+    //             Header: <p onClick={() => {setFullSort('year') }}>Year</p>,
+    //             accessor: 'year',
+    //             filterable: false,
+    //             sortable: true
+    //         },
+    //         {
+    //             Header:  <p onClick={() => {setFullSort('make') }}>Make</p>,
+    //             accessor: 'make',
+    //             filterable: true,
+    //             sortable: true
+    //         },
+    //         {
+    //             Header:  <p onClick={() => {setFullSort('v_model') }}>Model</p>,
+    //             accessor: 'v_model',
+    //             filterable: true,
+    //             sortable: true
+    //         }
+    //     ],
+    //     []
+    // );
+    const columns = [
             {
                 Header: <p onClick={() => {setFullSort('year') }}>Year</p>,
                 accessor: 'year',
@@ -66,9 +88,7 @@ function Search(props) {
                 filterable: true,
                 sortable: true
             }
-        ],
-        []
-    );
+        ];
     const setFilter = (key, val) => {
         let newFilters = { ...filterParams };
         newFilters[key] = val;

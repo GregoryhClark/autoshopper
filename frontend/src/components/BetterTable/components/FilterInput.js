@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../BetterTable.module.css'
+import styles from './TableFilters.module.css'
 
 const FilterInput = (props) => {
 

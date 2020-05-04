@@ -1,0 +1,18 @@
+.filtersWrapper{
+    margin:10px;
+    padding:10px;
+}
+.filters{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+.filterWrapper{
+    /* margin:0 5x; */
+}
+.filterLabel{
+    margin:0 5px 0 0;
+}
+.filterInput{
+    margin:0 5px 0 0;
+}

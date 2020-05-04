@@ -43,7 +43,7 @@ function Table({
     // Listen for changes in pagination and use the state to fetch new data
     useEffect(() => {
         fetchData({ pageIndex, pageSize, rowCount })
-    }, [fetchData, pageIndex, pageSize, rowCount]);
+    }, [pageIndex]);
 
     return (
         <>
@@ -230,7 +230,7 @@ function BetterTable({columns, reqURL, setTableData}) {
                 <Table
                     columns={columns}
                     data={data}
-                    fetchData={fetchData}
+                    fetchData={filterData}
                     loading={loading}
                     pageCount={pageCount}
                     rowCount={rowCount}

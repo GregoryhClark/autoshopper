@@ -1,3 +1,157 @@
+import React, { useEffect, useState } from 'react';
+// import {withRouter} from 'react-router-dom';
+import { APIBase } from '../../config/constants';
+import axios from 'axios';
+import styles from './Admin.module.css';
+import { AgGridReact } from 'ag-grid-react';
+import TableFilters from '../BetterTable/components/TableFilters';
+
+
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+
+
+const Admin = () => {
+    const route = '/vehicles/vehicles';
+    const [pageIndex, setPageIndex] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [numResults, setNumResults] = useState(0);
+    const [pageSize, setPageSize] = useState(0)
+    const [pageCount, setPageCount] = useState(1);
+    const [filters, setFilters] = useState('');
+    const [queryParams, setQueryParams] = useState('');
+    var reqURL = APIBase + route;
+
+
+    const setDataNow = async () => {
+        var res = await axios.get(`${reqURL}${queryParams}/?page=${pageIndex + 1}`);
+        console.log(res.data.results);
+        setData(setTableData(res.data.results));
+        setNumResults(res.data.count);
+        setPageSize(res.data.page_size);
+    }
+
+
+    useEffect(() => {
+        setDataNow();
+    }, [pageIndex]);
+
+    useEffect(()=>{
+        setDataNow()
+    }, [queryParams]);
+
+    var setTableData = (dataArr) => {
+        return dataArr.map(data => {
+            return {
+                year: data.year,
+                make: data.make.name,
+                v_model: data.v_model.name
+            }
+        })
+    };
+
+
+    const agColumns = [
+        {
+            headerName: 'Year',
+            Header: 'Year',
+            field: 'year',
+            filterable: true,
+            sortable: true
+        },
+        {
+            headerName: 'Make',
+            Header: 'Make',
+            field: 'make',
+            filterable: true,
+            sortable: true
+        },
+        {
+            headerName: 'Model',
+            Header: 'Model',
+            field: 'v_model',
+            filterable: true,
+            sortable: true
+        }
+    ];
+    const setFilter = (key, val) => {
+        let newFilters = { ...filters };
+        newFilters[key] = val;
+        setFilters(newFilters);
+    }
+
+    const stringifyQueryParams = () => {
+        var params = '/';
+        console.log("Here filters:", filters)
+
+        for (var key in filters) {
+            params = params + `?${key}=${filters[key]}`
+        }
+        setQueryParams(params);
+    };
+
+
+    const gotoPage = (pIndex) => {
+        setPageIndex(pIndex);
+    };
+
+    const previousPage = () => {
+        setPageIndex(pageIndex - 1);
+    }
+
+    const nextPage = () => {
+        setPageIndex(pageIndex + 1);
+    }
+    var numPagesOfResults = Math.ceil(numResults / pageSize);
+    var canNextPage = numPagesOfResults - pageIndex > 1;
+
+    var canPreviousPage = pageIndex > 0;
+
+    return (
+        <div className={styles.tableWrapper}>
+            <h1>Manual Table-AG-Grid</h1>
+            <TableFilters
+                setFilter={setFilter}
+                filterData={stringifyQueryParams}
+                columns={agColumns}
+            />
+            <div className="ag-theme-alpine" style={{ height: '275px', width: '680px' }}>
+
+                <AgGridReact
+                    columnDefs={agColumns}
+                    rowData={data}>
+                </AgGridReact>
+            </div>
+            <div className={styles.pagination}>
+                <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                    {'Start'}
+                </button>{' '}
+                <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                    {'<'}
+                </button>{' '}
+                <button onClick={() => nextPage()} disabled={!canNextPage}>
+                    {'>'}
+                </button>{' '}
+                <button onClick={() => gotoPage(numPagesOfResults - 1)} disabled={!canNextPage}>
+                    {'End'}
+                </button>{' '}
+                <span>
+                    Page{' '}
+                    <strong>
+                        {pageIndex + 1} of {numPagesOfResults}
+                    </strong>{' '}
+                </span>
+
+            </div>
+
+
+        </div>
+    );
+}
+
+export default Admin;
+
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import styles from './admin.module.css';
