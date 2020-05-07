@@ -142,14 +142,10 @@ const Admin = () => {
                         {pageIndex + 1} of {numPagesOfResults}
                     </strong>{' '}
                 </span>
-
             </div>
-
-
         </div>
     );
 }
-
 export default Admin;
 
 // import React, { useState, useEffect } from 'react';

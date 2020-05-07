@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register("makes", views.MakeListViewSet)
 router.register("v_models", views.VModelListViewSet)
 router.register("vehicles", views.VehicleListViewSet)
+router.register("svic", views.VehicleListView)
 
 urlpatterns = [
     path('', include(router.urls)),

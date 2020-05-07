@@ -19,7 +19,7 @@ const About = () => {
 
 
     const setDataNow = async () => {
-        var res = await axios.get(`${reqURL}${queryParams}/?page=${pageIndex + 1}`);
+        var res = await axios.get(`${reqURL}/?page=${pageIndex + 1}${queryParams}`);
         console.log(res.data.results);
         setData(setTableData(res.data.results));
         setNumResults(res.data.count);
@@ -73,11 +73,9 @@ const About = () => {
     }
 
     const stringifyQueryParams = () => {
-        var params = '/';
-        console.log("Here filters:", filters)
-
+        var params = '';
         for (var key in filters) {
-            params = params + `?${key}=${filters[key]}`
+            params = params + `&${key}=${filters[key]}`
         }
         setQueryParams(params);
     };

@@ -8,6 +8,9 @@ from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework_extensions.mixins import PaginateByMaxMixin
+from rest_framework import filters
+from rest_framework import generics
+
 
 class CustomPagination( PageNumberPagination):
     page_size = 5
@@ -21,7 +24,6 @@ class CustomPagination( PageNumberPagination):
         return 1
 
     def get_paginated_response(self, data):
-        print(self)
         return Response({
             'next': self.get_next_link(),
             'current':self.request.build_absolute_uri(),
@@ -57,4 +59,39 @@ class VehicleListViewSet(viewsets.ModelViewSet):
     serializer_class = VehicleSerializer
     queryset = Vehicle.objects.all()
     pagination_class = CustomPagination
+    
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        selected_make = self.request.query_params.get('make', None)
+        if selected_make:
+            try:
+                found_make = Make.objects.get(name__icontains=selected_make)
+            except:
+                return []
+            if found_make:
+                if found_make.id:
+                    qs = qs.filter(make=found_make.id)
+        selected_v_model = self.request.query_params.get('v_model', None)
+        if selected_v_model:
+            try:
+                found_v_model = VModel.objects.get(name__icontains=selected_v_model)
+            except:
+                return []
+            if found_v_model:
+                if found_v_model.id:
+                    qs = qs.filter(v_model=found_v_model.id)
+        selected_year = self.request.query_params.get('year', None)
+        if selected_year:
+            qs = qs.filter(year=selected_year)
+        return qs
+
+
+class VehicleListView(viewsets.ModelViewSet):
+    queryset = Vehicle.objects.all()
+    serializer_class = VehicleSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['year', 'v_model__name','make__name']
+
+
 

@@ -17,12 +17,7 @@ class Vehicle(models.Model):
     make = models.ForeignKey(Make, on_delete=models.CASCADE)
     v_model = models.ForeignKey(VModel, on_delete=models.CASCADE)
     year = models.CharField(max_length=5)
-    # trims = models.ManyToManyField('TrimFeature')
     def __str__(self):
-        print("this is the type: ")
-        print(type(self.v_model))
-        print(self.v_model)
-
         return self.year + " " + self.v_model.name
 
 
